@@ -1,6 +1,6 @@
 # MIDS W205
 
-##Lab #              0     
+##Lab #              0     (In Development)
 
 ## A Brief Introduction to Linux and Debugging
 
