@@ -42,7 +42,8 @@ We're going to begin by making a persistent disk that we can attach to EC2 insta
           3. 7180 (Cloudera Manager)
           4. 8080 (Webserver)
           5. 8088 (Jupyter Notebook)
-          6. 50070 (Hadoop)
+          6. 10000 (Hive)
+          7. 50070 (Hadoop)
  
     - Before you launch your instance, check to make sure your security group looks like the following
 
@@ -118,7 +119,7 @@ The process of creating a filesystem, mounting it, formatting it for HDFS, setti
 
 3. Run the setup script
 
-  a. Type: `./setup_ucb_complete_plus_postgres.sh` <*the device path from step 2*>
+  a. Type: `./setup_ucb_complete_plus_postgres.sh <*the device path from step 2*>`
 
   b. Hit Enter
 
