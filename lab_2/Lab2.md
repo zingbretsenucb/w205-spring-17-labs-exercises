@@ -35,7 +35,7 @@ We're going to begin by making a persistent disk that we can attach to EC2 insta
 
   c. Before launching your instance, you need to modify the security rules. This will allow you to access the Hadoop and Spark web interfaces.
 
-    - Create the following open TCP ports on 0.0.0.0/0  (all ip addresses, in practice you will want to limit this to as neccessary)
+    - Create the following open TCP ports on `0.0.0.0/0`  (all ip addresses, in practice you will want to limit this to as neccessary)
 
           1. 22 (SSH)
           2. 4040 (Spark-ui)
