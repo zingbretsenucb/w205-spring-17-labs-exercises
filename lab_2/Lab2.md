@@ -1,9 +1,10 @@
-#MIDS W205
+#MIDS W205 : Lab 2
 
-|**Lab #**|2|**Lab Title**|Setting Up Pseudo-Distributed Hadoop on AWS|
-|---|---|---|---|
-|**Related Module(s)**| 1-4 | **Goal** | Understanding architecture concepts |
-|**Last Updated**| 1/8/16 | **Expected duration** | 40-60 minutes |
+|                      |        |                     |                                                  |
+|----------------------|--------|---------------------|--------------------------------------------------|
+| *Lab*                | 2      | *Lab Title*         | Setting Up Pseudo-Distributed Hadoop on AWS |
+| *Related Modules(s)* | 1-4      | *Goal*              | Understanding architecture concepts |
+| *Last Updated*       | 1/7/17 | *Expected Duration* |  40-60 minutes         
 
 ##Introduction:
 
