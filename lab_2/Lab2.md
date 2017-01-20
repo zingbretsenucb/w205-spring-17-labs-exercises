@@ -30,11 +30,13 @@ We're going to begin by making a persistent disk that we can attach to EC2 insta
 
 1. Launch an instance of UCB W205 Spring 2016, **make note of what zone it is placed into**
 
-  a. If the instance starts in US-East-1A, that is where we need an EBS volume. If it starts in US-East-1B, then the EBS volume will need to be created there.
+  a. You will need to use an instance with at least 4 GiB of memory since Postgres and Hadoop use more memeory than is avaliable on smaller instances.
+  
+  b. If the instance starts in US-East-1A, that is where we need an EBS volume. If it starts in US-East-1B, then the EBS volume will need to be created there.
 
-  b. **Important:** Once you decide what zone you will create your EBS volume in, **ALWAYS** launch your EC2 instances into that zone.
+  c. **Important:** Once you decide what zone you will create your EBS volume in, **ALWAYS** launch your EC2 instances into that zone.
 
-  c. Before launching your instance, you need to modify the security rules. This will allow you to access the Hadoop and Spark web interfaces.
+  d. Before launching your instance, you need to modify the security rules. This will allow you to access the Hadoop and Spark web interfaces.
 
     - Create the following open TCP ports on `0.0.0.0/0`  (all ip addresses, in practice you will want to limit this to as neccessary)
 
