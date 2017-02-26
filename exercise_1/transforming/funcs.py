@@ -5,6 +5,11 @@
 #
 #from collections import namedtuple
 #from collections import *
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType, DoubleType, IntegerType
+
+from collections import namedtuple
+newCol = namedtuple('newCol', ['name', 'type'])
 
 
 def getDescriptives(df):
@@ -50,3 +55,38 @@ def reverse_score(x, y):
     x = float(x)
     y = float(y)
     return x * y
+
+
+def z_score_df(context, df, reverse_func, prefix = ""):
+    """Takes a df with `score`, `mean`, and `stddev` columns"""
+
+    score = prefix + 'score'
+    z = prefix + 'z_score'
+    mu = prefix + 'mean'
+    sigma = prefix + 'stddev'
+    rev = prefix + 'reverse'
+
+    # Assign -1 if value should be reverse coded
+    rev_udf = udf(lambda x: reverse_func(x), DoubleType())
+    df = df.withColumn(rev, rev_udf('measure_id'))
+
+    # Compute the z-score for each hospital's measures
+    cols = [
+	    newCol(score, DoubleType), 
+	    newCol(mu, DoubleType), 
+	    newCol(sigma, DoubleType), 
+	    newCol(rev, DoubleType), 
+	    ]
+    for col in cols:
+	df = castCol(df, col)
+
+    zscore_udf = udf(lambda x, y, z: z_score(x, y, z), DoubleType())
+    df = df.withColumn(z, zscore_udf(
+	score, mu, sigma))
+
+    df.registerTempTable('tmp')
+    df = context.sql('select {colNames}, {z} * {rev} as {z}_reversed from tmp'.format(
+	colNames = getColNames(df),
+	z = z,
+	rev = rev))
+    return df

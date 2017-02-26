@@ -3,7 +3,7 @@
 #from pyspark.sql.functions import UserDefinedFunction
 from pyspark import SparkContext
 from pyspark.sql import HiveContext
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import udf, lit
 from pyspark.sql.functions import col as pycol
 from pyspark.sql.types import StringType, DoubleType, IntegerType
 
@@ -54,31 +54,14 @@ readmit_df = readmit_df.withColumn('range',
 cols.append(newCol('range', DoubleType))
 
 # Get descriptive statistics about columns
-#d_mean, d_sd = getDescriptives(readmit_df)
+d_mean, d_sd = getDescriptives(readmit_df)
 
-tmp_stats_df = sq.sql('select measure_id \
-	,avg(score) as mean \
-	,stddev_pop(score) as stddev \
-	,min(score) as min \
-	,max(score) as max \
-	from readmissions \
-	where score is not NULL \
-	group by measure_id \
-	having mean is not NULL')
+# Z-score the columns
+# (x - mu) / sigma
+for col in cols:
+    readmit_df = readmit_df.withColumn(
+	    col.name + "_z",
+	    (readmit_df[col.name] - d_mean[col.name])/d_sd[col.name])
 
-
-# Join the descriptives to the care df
-readmit_df = readmit_df.alias('a').join(tmp_stats_df.alias('b'), 
-	pycol('a.measure_id') == pycol('b.measure_id')).select(
-		[pycol('a.'+xx)
-		    for xx in readmit_df.columns] + 
-		[pycol('b.'+xx) for xx in tmp_stats_df.columns
-		    if xx != 'measure_id'] )
-
-# All values should be reverse coded (lower is better)
-def do_reverse(x):
-    return -1.0
-
-
-readmit_df = z_score_df(sq, readmit_df, do_reverse)
-saveTable(sq, readmit_df, 'readmit_z_testing')
+saveTable(context = sq, df = readmit_df, table = 'readmit')
+del readmit_df
