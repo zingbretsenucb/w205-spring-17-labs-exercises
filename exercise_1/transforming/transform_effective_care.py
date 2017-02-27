@@ -30,7 +30,8 @@ newCol = namedtuple('newCol', ['name', 'type'])
 ###############################################
 
 # Get relevant columns (as strings)
-effective_care_df = sq.sql('SELECT * FROM effective_care \
+effective_care_df = sq.sql('SELECT provider_id, measure_id, \
+	score FROM effective_care \
 	where score is not NULL')
 
 # Names and Types to cast columns as
@@ -103,11 +104,9 @@ if True:
     # This will scale the score between 0 and 1 so we can compare variability across themeasures
     effective_care_df = scale_score_df(sq, effective_care_df)
 
-
 # This z-scores the measures so we can compare performance across hospitals
 if True:
     effective_care_df = z_score_df(sq, effective_care_df, do_reverse)
 
 saveTable(sq, effective_care_df, 'timely')
-
 saveBest(sq, 'timely')

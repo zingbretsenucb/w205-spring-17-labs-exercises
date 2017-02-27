@@ -31,8 +31,7 @@ newCol = namedtuple('newCol', ['name', 'type'])
 
 # Get relevant columns (as strings)
 readmit_df = sq.sql('SELECT provider_id, \
-	measure_id, compared_to_national, denominator, \
-	score, lower_estimate, higher_estimate\
+	measure_id, score, lower_estimate, higher_estimate\
 	FROM readmissions \
 	where score is not NULL')
 
@@ -95,5 +94,9 @@ def do_reverse(x):
 
 readmit_df = scale_score_df(sq, readmit_df)
 readmit_df = z_score_df(sq, readmit_df, do_reverse)
+saveTable(sq, readmit_df, 'readmit')
+
+readmit_df = sq.sql('select provider_id, measure_id, \
+	score_scaled, z_score_reversed from readmit')
 saveTable(sq, readmit_df, 'readmit')
 saveBest(sq, 'readmit')
