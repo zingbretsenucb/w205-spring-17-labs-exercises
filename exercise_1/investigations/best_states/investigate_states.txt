@@ -1,0 +1,16 @@
+What states are models of high-quality care?
+
+ME      0.23902496173991564     1234
+UT      0.22495874866179352     1353
+CO      0.21694479832563143     2331
+NH      0.20139391235575477     922
+WI      0.19691774258449185     4155
+DE      0.13248561717080934     320
+SD      0.11323611724228173     847
+MA      0.11020620738857011     2777
+NE      0.10234873989783203     1539
+HI      0.09205617332481798     588
+
+Similarly to question 1, which asked about individual hospitals, we can look at the performance of whole states on the metrics collected in the dataset. As before, this looks across the timely and effective care measures, as well as the readmission and death measures. States have enough data that I feel comfortable averaging the z-scores of all the measures for each state to generate the rankings.
+
+These states all perform better than average. As a resident of NH, and an employee of MA, I feel quite well cared for given the results of this query.
