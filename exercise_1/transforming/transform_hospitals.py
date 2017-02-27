@@ -25,23 +25,11 @@ except:
 # Named tuple to store column info
 newCol = namedtuple('newCol', ['name', 'type'])
 
-######################################################
-# Pull just base and consistency scores from surveys #
-######################################################
+###########################
+# Prepare hospitals table #
+###########################
 
 # Get relevant columns (as strings)
-surveys_df = sq.sql('SELECT provider_id, \
-	base_score, consistency \
-	FROM survey_responses')
+hospitals_df = sq.sql('select provider_id, hospital_name, state from hospitals')
 
-# Names and Types to cast columns as
-cols = [
-	newCol('base_score', IntegerType), 
-	newCol('consistency', IntegerType), 
-	]
-
-# Cast columns to proper types
-for col in cols:
-    surveys_df = castCol(surveys_df, col)
-
-saveTable(context = sq, df = surveys_df, table = 'surveys')
+saveTable(context = sq, df = hospitals_df, table = 'hospitals')

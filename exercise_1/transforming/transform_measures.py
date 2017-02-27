@@ -30,35 +30,6 @@ newCol = namedtuple('newCol', ['name', 'type'])
 ##########################
 
 # Get relevant columns (as strings)
-measures_df = sq.sql('select * from measures')
+measures_df = sq.sql('select measure_name, measure_id from measures')
 
-## Names and Types to cast columns as
-#cols = [
-#	newCol('score', DoubleType), 
-#	newCol('lower_estimate', DoubleType), 
-#	newCol('higher_estimate', DoubleType), 
-#	newCol('denominator', IntegerType), 
-#	]
-#
-## Cast columns to proper types
-#for col in cols:
-#    readmit_df = castCol(readmit_df, col)
-#
-## Compute range of upper - lower estimates
-## Could be interesting as a measure of variability
-#readmit_df = readmit_df.withColumn('range',
-#	readmit_df['higher_estimate'] - readmit_df['lower_estimate'])
-#cols.append(newCol('range', DoubleType))
-#
-## Get descriptive statistics about columns
-#d_mean, d_sd = getDescriptives(readmit_df)
-#
-## Z-score the columns
-## (x - mu) / sigma
-#for col in cols:
-#    readmit_df = readmit_df.withColumn(
-#	    col.name + "_z",
-#	    (readmit_df[col.name] - d_mean[col.name])/d_sd[col.name])
-#
-#saveTable(context = sq, df = readmit_df, table = 'readmit')
-#del readmit_df
+saveTable(context = sq, df = measures_df, table = 'measures')
