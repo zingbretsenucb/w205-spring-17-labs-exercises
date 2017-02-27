@@ -1,6 +1,6 @@
 Before starting the analysis, please make sure Hadoop, Postgres, and the Hive Metastore are running.
 
-As root
+As root:
 ```
 /root/start_hadoop.sh
 /data/start_postgres.sh
