@@ -40,7 +40,6 @@ cols = [
 	newCol('score', DoubleType), 
 	newCol('lower_estimate', DoubleType), 
 	newCol('higher_estimate', DoubleType), 
-	newCol('denominator', IntegerType), 
 	]
 
 # Cast columns to proper types
