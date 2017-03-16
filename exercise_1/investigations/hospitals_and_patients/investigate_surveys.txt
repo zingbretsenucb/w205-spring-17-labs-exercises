@@ -1,0 +1,16 @@
+Are average scores for hospital quality or procedural variability correlated with patient survey responses?
+
+
+Performance X Base  	 Performance X Consistency 	 Stddev X Base         	 Stddev X Consistency
+0.1256055590437481  	 0.28449613787296246       	 -0.052500299434543055 	 -0.223225028592188
+
+As it turns out, yes! The performance of the hospitals (the sum of the
+z-scores) is correlated with both the base score of the patient surveys as
+well as the consistency score of the patient surveys. The variability of the
+care does not seem to be related to the base score, but high variability in
+performance is negatively correlated with the consistency score!
+
+I used the same approach to calculate the variabilities of the procedures at
+each of the hospitals as for the first question. I then used SQL to compute
+the correlation between the hospital performance and the two aggregated survey
+metrics.

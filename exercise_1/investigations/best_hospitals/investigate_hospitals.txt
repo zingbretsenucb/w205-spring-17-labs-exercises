@@ -1,0 +1,17 @@
+What hospitals are models of high-quality care? That is, which hospitals have the most consistently high scores for a variety of procedures.
+
+provider_id 	 hospital_name                                    	 score              	 n
+420087      	 ROPER HOSPITAL                                   	 34.68760823394377  	 55
+130006      	 ST LUKE'S REGIONAL MEDICAL CENTER                	 32.402368086548435 	 56
+330214      	 NYU HOSPITALS CENTER                             	 31.877340040156163 	 56
+390057      	 GRAND VIEW HOSPITAL                              	 31.22619956077212  	 51
+260006      	 HEARTLAND REGIONAL MEDICAL CENTER                	 30.2519541947379   	 54
+100070      	 VENICE REGIONAL MEDICAL CENTER - BAYFRONT HEALTH 	 29.604587723511344 	 52
+230072      	 HOLLAND COMMUNITY HOSPITAL                       	 29.397050132942326 	 54
+150162      	 FRANCISCAN ST FRANCIS HEALTH - INDIANAPOLIS      	 29.363307319867264 	 53
+050424      	 SCRIPPS GREEN HOSPITAL                           	 29.301814926665486 	 45
+450431      	 ST DAVID'S MEDICAL CENTER                        	 28.251063558550026 	 55
+
+In my estimation, these are the 10 hospitals that have the best performance in the dataset.Since all of the hospitals didn't have the same number of ratings I decided not to use the average of the z-scored outcomes. A hospital with one rating could end up with a high ranking by chance. I decided to use the sum of the z-scored ratings instead. Because z-scores are mean-centered around 0, hospitals should end up with summed z-scores around 0 if the scores were assigned by chance. Hospitals that consistently perform better than chance are rewarded with higher ratings.
+
+The hospitals listed above all had measurements for over 40 metrics, and the performed reliably better than average.
