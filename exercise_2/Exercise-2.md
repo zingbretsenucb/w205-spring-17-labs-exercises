@@ -60,7 +60,7 @@ In this section, we provide the overall guidelines for implementing the system s
 	* **AMI ID: ami-d4dd4ec3**
 	
 	Also attach and mount the EBS volume at /data.
-3. Install **psycopg** by running: `$ pip install psycopg2`
+3. Install **psycopg** by running: `$ pip install psycopg2==2.6.2`
 4. Create a project called **extweetwordcount** with Streamparse (see Lab 6 for details)
 5. Copy the files from the **tweetwordcount** directory of the repository, and place them in the corresponding folders of the new **extweetwordcount** project. The description of the files in the code base is provided in Table 1.
 6. Modify the **extweetwordcound.clj** to implement the topology in Figure 1.
