@@ -10,14 +10,14 @@ conn = psycopg2.connect(database="postgres", user="postgres", password="pass", h
 #Create the Database
 
 try:
-	# CREATE DATABASE can't run inside a transaction
-	conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    # CREATE DATABASE can't run inside a transaction
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
     cur.execute("CREATE DATABASE tcount")
     cur.close()
     conn.close()
 except:
-    print "Could not create tcount"​
+    print "Could not create tcount"
 
 #Connecting to tcount
 
