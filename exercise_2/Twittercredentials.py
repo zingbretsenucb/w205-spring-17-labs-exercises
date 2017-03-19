@@ -1,17 +1,13 @@
 import tweepy
 
-consumer_key = "YourConsumerkey";
-#eg: consumer_key = "YisfFjiodKtojtUvW4MSEcPm";
+consumer_key = "xbdaspoSAKRZ9iv2q3In6xQJX";
 
 
-consumer_secret = "YourConsumerSecret";
-#eg: consumer_secret = "YisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPm";
+consumer_secret = "eQuL4BuZ9WpKbzBkJeosjRbd5EvljjSGjKE8XrvA3nl9LcUVRA";
 
-access_token = "YourAcessToken";
-#eg: access_token = "YisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPm";
+access_token = "474295968-VThlDa4WDRMVgJQTs8w7iyuAtFBoDk8OG9jRmbUr";
 
-access_token_secret = "YourTokenSecret";
-#eg: access_token_secret = "YisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPmYisfFjiodKtojtUvW4MSEcPm";
+access_token_secret = "kimRtcTJh3HKu9OcbPEARYnPYet3G8J6H2DC6BVO14EAr";
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
