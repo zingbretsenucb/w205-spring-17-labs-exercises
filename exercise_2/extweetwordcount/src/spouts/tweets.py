@@ -74,7 +74,6 @@ class Tweets(Spout):
             tweet = self.queue().get(timeout = 0.1) 
             if tweet:
                 self.queue().task_done()
-                print(tweet)
                 self.emit([tweet])
  
         except Queue.Empty:
