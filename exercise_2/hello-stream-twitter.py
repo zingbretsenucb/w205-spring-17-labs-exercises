@@ -1,11 +1,11 @@
 """
 Using Twitter stream API, print all the tweets in the stream containing the term "Hello" in a 1 min period
-
 """
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-from Twittercredentials import *
+#from Twittercredentials import *
+from credentials.Twittercredentials import *
 from time import time,ctime
 import simplejson
 
@@ -52,9 +52,6 @@ class StdOutListener(StreamListener):
 
 if __name__ == '__main__':
     # to collect the data for 1 min
-    l = StdOutListener(60)
+    l = StdOutListener(5)
     mystream = tweepy.Stream(auth, l, timeout=60)
     mystream.sample()
-
-
-
