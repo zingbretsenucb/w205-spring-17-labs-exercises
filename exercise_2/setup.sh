@@ -7,3 +7,4 @@ cd extweetwordcount
 rm topologies/wordcount.clj
 rm virtualenvs/wordcount.txt
 rm src/spouts/words.py
+source setup_credentials.sh

@@ -1,61 +1,15 @@
-from __future__ import absolute_import, print_function, unicode_literals
-
-from collections import Counter
-from streamparse.bolt import Bolt
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import psycopg2
 from collections import defaultdict
-import re
-
-import ConfigParser
-import os
-
-class WordCounter(Bolt):
-
-    def initialize(self, conf, ctx):
-        self.counts = Counter()
-
-        file_path = os.path.dirname(os.path.realpath(__file__))
-        parser = ConfigParser.ConfigParser()
-
-        parser.read(os.path.join(file_path, 'credentials.config'))
-
-        database = parser.get('TCOUNT', 'database')
-        table = parser.get('TCOUNT', 'table')
-        user = parser.get('POSTGRES', 'user')
-        password = parser.get('POSTGRES', 'password')
-
-        self.updater = pgUpdater(database = database, table = table,
-                                 user = user, password = password,
-                                 word_buffer_size = 100, count_buffer_size = 5)
-
-    def process(self, tup):
-        word = tup.values[0]
-        
-        # Use custom pgUpdater class to add words to the postgres
-        # database in batches (or after each word)
-        self.updater.add((word, 1))
-        
-
-        # Increment the local count
-        self.counts[word] += 1
-        self.emit([word, self.counts[word]])
-
-        # Log the count - just to see the topology running
-        self.log('%s: %d' % (word, self.counts[word]))
-
-
-
 
 class pgUpdater(object):
     """Update database in batches 
 
-    This class *should* be used as a context so that its database
+    This class should be used as a context so that its database
     connection will be released gracefully. If not in a context, the
-    class will connect and disconnect on every update or batch of
-    updates. I don't see a way to use this as a context within Apache
-    Storm, but for my own edification, I wanted to write this as a
-    context.
+    class will connect and disconnect on every update or batch of updates.
     
     Rather than update the database upon receipt of every word, we
     maintain a buffer of words and their counts. When a single word
@@ -165,11 +119,10 @@ class pgUpdater(object):
 
     def update_db(self, word):
         count = self.words[word]
-        word = re.sub("'", "''", word)
 
-        insert_string = u'INSERT INTO tweetwordcount (word, count) \
+        insert_string = 'INSERT INTO tweetwordcount (word, count) \
             VALUES (\'{}\', {})'.format(word, count)
-        update_string = u'UPDATE tweetwordcount set \
+        update_string = 'UPDATE tweetwordcount set \
             count = count + {} \
             where word = \'{}\''.format(count, word)
 
@@ -184,3 +137,10 @@ class pgUpdater(object):
         # Either way, commit the changes
         finally:
             self.conn.commit()
+            
+
+if __name__ == "__main__":
+
+    with pgUpdater(database = 'tcount', table = 'tweetwordcount', word_buffer_size = 1000, count_buffer_size = 10, password = 'eicaen') as pgu:
+        pgu.add(('xxx', 2))
+        pgu.add(('yyy', 4))

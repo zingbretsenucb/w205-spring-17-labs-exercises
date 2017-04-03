@@ -4,16 +4,24 @@ import itertools, time
 import tweepy, copy 
 import Queue, threading
 
+import ConfigParser
+import os
+
 from streamparse.spout import Spout
 
 ################################################################################
 # Twitter credentials
 ################################################################################
+file_path = os.path.dirname(os.path.realpath(__file__))
+parser = ConfigParser.ConfigParser()
+
+parser.read(os.path.join(file_path, 'credentials.config'))
+
 twitter_credentials = {
-    "consumer_key"        :  "xbdaspoSAKRZ9iv2q3In6xQJX",
-    "consumer_secret"     :  "eQuL4BuZ9WpKbzBkJeosjRbd5EvljjSGjKE8XrvA3nl9LcUVRA",
-    "access_token"        :  "474295968-VThlDa4WDRMVgJQTs8w7iyuAtFBoDk8OG9jRmbUr",
-    "access_token_secret" :  "kimRtcTJh3HKu9OcbPEARYnPYet3G8J6H2DC6BVO14EAr",
+    'consumer_key'        : parser.get('TWITTER', 'consumer_key'),
+    'consumer_secret'     : parser.get('TWITTER', 'consumer_secret'),
+    'access_token'        : parser.get('TWITTER', 'access_token'),
+    'access_token_secret' : parser.get('TWITTER', 'access_token_secret'),
 }
 
 def auth_get(auth_key):
