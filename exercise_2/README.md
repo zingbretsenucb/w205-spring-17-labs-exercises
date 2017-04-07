@@ -2,7 +2,7 @@ Zach Ingbretsen Exercise 2
 
 In order to run this, you must make sure that postgres is running and you have mounted the /data directory
 
-If you have not done this, run the following command:
+If you have not done this, run the following command (you may need to change the name of the drive you're mounting):
 
 ```bash
 ./startup.sh
