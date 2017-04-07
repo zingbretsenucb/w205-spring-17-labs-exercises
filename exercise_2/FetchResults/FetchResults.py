@@ -7,6 +7,7 @@ import os
 import re
 import sys
 
+# Load in details from credentials file
 parser = ConfigParser.ConfigParser()
 
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -20,12 +21,15 @@ host     = parser.get('POSTGRES', 'host')
 port     = parser.get('POSTGRES', 'port')
 
 class ResultsFetcher(object):
+    """Class to safely retrieve words from postgres"""
+
     def __init__(self):
         self.conn = None
         self.cur = None
 
 
     def __enter__(self):
+        """Connect to database upon entering context"""
         self.conn = psycopg2.connect(
             database=database,
             user=user,
@@ -37,11 +41,13 @@ class ResultsFetcher(object):
 
 
     def __exit__(self, *args):
+        """Safely close connection upon leaving context"""
         self.conn.close()
         return False
 
 
     def fetch_word(self, word):
+        """Fetch a single word from the database"""
         word = re.sub("'", "''", word)
         query_str = 'SELECT count from {} where word = \'{}\''.format(table, word)
 
@@ -56,15 +62,16 @@ class ResultsFetcher(object):
         print(output_str.format(word, count))
 
 
-    def fetch_all_words(self):
+    def fetch_all_words(self, asc = True):
+        """Fetch all words from the database"""
         query_str = 'SELECT word, count from {}'.format(table)
         self.cur.execute(query_str)
         self.conn.commit()
 
         all_words = self.cur.fetchall()
         # Return all words sorted so that the most frequent words are
-        # on the top
-        return sorted(all_words, key = lambda x: x[1], reverse = True)
+        # on the top, by default
+        return sorted(all_words, key = lambda x: x[1], reverse = asc)
 
 
     def print_all_words(self):
