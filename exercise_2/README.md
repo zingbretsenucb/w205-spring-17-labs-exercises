@@ -25,4 +25,30 @@ cd extweetwordcount
 sparse run
 ```
 
+Press enter when prompted
+
 Press ctrl + c to stop the process
+
+
+Once you have collected some data, you may run the following commands to inspect the data.
+
+To print all words and their counts:
+```bash
+python2.7 finalresults.py
+```
+
+To print a given word and its count:
+```bash
+python2.7 finalresults.py <word>
+
+#e.g.,
+python2.7 finalresults.py tweet
+```
+
+To report all words between lengths m and n:
+```bash
+python2.7 histogram.py m,n
+
+#e.g.,
+python2.7 histogram.py 9,11
+```
