@@ -9,7 +9,7 @@
           options
           "spouts.tweets.Tweets"
           ["tweet"]
-          :p 1
+          :p 3
           )
     }
     ;; bolt configuration
@@ -22,7 +22,7 @@
           )
      "count-bolt" (python-bolt-spec
           options
-          {"parse-tweet-bolt" ["word"] }
+          {"parse-tweet-bolt" ["word"]}
           "bolts.wordcount.WordCounter"
           ["word" "count"]
           :p 2
