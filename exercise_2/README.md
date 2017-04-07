@@ -19,3 +19,10 @@ Now, you can run:
 This will install tweepy and psycopg2, move your credentials where they need to be, and create the database and table that we will be using.
 
 
+You can run the tweet stream parser by running:
+```bash
+cd extweetwordcount
+sparse run
+```
+
+Press ctrl + c to stop the process

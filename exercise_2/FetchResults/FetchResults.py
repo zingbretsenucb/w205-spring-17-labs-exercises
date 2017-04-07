@@ -10,7 +10,7 @@ import sys
 parser = ConfigParser.ConfigParser()
 
 file_path = os.path.dirname(os.path.realpath(__file__))
-parser.read(os.path.join(file_path, '../credentials/postgres_credentials.config'))
+parser.read(os.path.join(file_path, 'postgres_credentials.config'))
 
 database = parser.get('TCOUNT', 'database')
 table    = parser.get('TCOUNT', 'table')
