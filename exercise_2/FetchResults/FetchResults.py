@@ -62,7 +62,9 @@ class ResultsFetcher(object):
         self.conn.commit()
 
         all_words = self.cur.fetchall()
-        return all_words
+        # Return all words sorted so that the most frequent words are
+        # on the top
+        return sorted(all_words, key = lambda x: x[1], reverse = True)
 
 
     def print_all_words(self):
