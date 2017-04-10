@@ -18,6 +18,8 @@ There are three spouts to pull data from Twitter. These spouts emit full, unedit
 
 In this project, the data write to a PostgreSQL database. PostgreSQL is an open source and feature-filled database that is easy to write to and query from. We are using the Python package Psycopg2 to interact with Postgres. We can create our database and table in Python using Psycopg2, write to it from inside our streamparse bolt, and then query the database from Python CLI scripts. Using Python end-to-end makes for a cohesive and coherent project.
 
+To query the database, there are two scripts (finalresults.py and histogram.py) that use the module FetchResults that was written for this exercise. FetchResults works inside a context manager so safely open and close the connection to the database, and provides some sorting options. The finalresults.py script can be run with the flags `--numerical` to sort by count instead of alphabetically and `--desc` to sort in descending order instead of ascending order.
+
 ## Relevant directories and files
 
 The code is organized into one streamparse project, 2 python packages, and other individual scripts for setup/querying. Most importantly, the streamparse code is in the extweetwordcount directory. To run the streaming code, the user should enter that directory and run the command `sparse run`.

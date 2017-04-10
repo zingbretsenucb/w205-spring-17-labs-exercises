@@ -20,7 +20,32 @@ If you have already set up this volumne to run postgres, you can now simply run:
 /data/start_postgres.sh
 ```
 
-If you have not already set up this drive, you must follow the instructions from lab XXX to set up the drive.
+If you have not already set up this drive, you must follow the instructions from lab 2 to set up the drive:
+1. Make a directory at the top level called /data
+  a. Type: `ls /`
+
+    i. Notice the "data" directory. This is where we will mount the disk.
+
+    ii. We will always try to work out of `/data` in order to preserve data between
+        sessions.
+
+  b. Type: `chmod a+rwx /data`
+
+    i. This sets `/data` as readable, writable and executable by all users. It is insecure, but it will eliminate permissions problems.
+
+2. Download the setup script
+
+  a. Type: `wget https://s3.amazonaws.com/ucbdatasciencew205/setup_ucb_complete_plus_postgres.sh`
+
+  b. Type: `chmod +x ./setup_ucb_complete_plus_postgres.sh`
+
+3. Run the setup script
+
+  a. Type: `./setup_ucb_complete_plus_postgres.sh <*the device path from step 2*>`
+
+  b. Hit Enter
+
+
 
 Once you have the drive mounted and postgres running, create a folder in data for the exercise and download or clone the repository there.
 ```bash
@@ -40,8 +65,15 @@ Now, you can run:
 
 This will install tweepy and psycopg2, move your credentials where they need to be, and create the database and table that we will be using.
 
+If you would like to test to make sure the credentials and Tweepy are working, you can run:
+```bash
+python2.7 hello-stream-twitter.py
+```
 
-You can run the tweet stream parser by running:
+You should see a summary output after a few seconds.
+
+
+You can start the tweet stream parser by running:
 ```bash
 cd extweetwordcount
 sparse run
@@ -49,7 +81,7 @@ sparse run
 
 Press enter when prompted.
 
-Press ctrl + c to stop the process.
+Press ctrl + c to stop the process after you have collected your desired amount of data.
 
 
 Once you have collected some data, you may run the following commands to inspect the data.
