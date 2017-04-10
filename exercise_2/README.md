@@ -1,5 +1,7 @@
 Zach Ingbretsen Exercise 2
 
+# Preparing the system
+
 In order to run this, you must make sure that postgres is running and you have mounted the /data directory.
 
 If you have not done this, run the following commands as root (you may need to change the name of the drive you're mounting):
@@ -46,6 +48,7 @@ If you have not already set up this drive, you must follow the instructions from
   b. Hit Enter
 
 
+# Getting the repository
 
 Once you have the drive mounted and postgres running, create a folder in data for the exercise and download or clone the repository there.
 ```bash
@@ -54,6 +57,8 @@ cd /data/labs/
 git clone -b submission --single-branch https://github.com/zingbretsenucb/w205-sprint-17-labs-exercises
 cd w205-sprint-17-labs-exercises/exercise_2
 ```
+
+# Credentials
 
 Next, please enter your twitter app's credentials in the twitter_credentials.config file. The Storm spout will not work without these credentials.
 
@@ -72,6 +77,7 @@ python2.7 hello-stream-twitter.py
 
 You should see a summary output after a few seconds.
 
+# Running the tweet stream program
 
 You can start the tweet stream parser by running:
 ```bash
@@ -83,6 +89,7 @@ Press enter when prompted.
 
 Press ctrl + c to stop the process after you have collected your desired amount of data.
 
+# Querying results
 
 Once you have collected some data, you may run the following commands to inspect the data.
 
