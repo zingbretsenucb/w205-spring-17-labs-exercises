@@ -3,14 +3,35 @@
 
 from FetchResults import *
 import sys
+import argparse
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="initial settings for fetching results")
+
+    parser.add_argument('word', metavar = 'W', type=str, nargs = '?',
+                        help = "Word to search for (optional)")
+
+    parser.add_argument('--desc', action = 'store_false', dest = 'asc',
+                        help = "Sort descending (default: ascending)")
+
+    parser.add_argument('--numerical', dest = 'num',
+                        action = 'store_true',
+                        help = "Sort by count (default: alphabetically)")
+
+    args = parser.parse_args()
+    print(args)
+
+    asc  = args.asc
+    word = args.word
+    num  = 'count' if args.num else 'word'
+
     with ResultsFetcher() as fetcher:
-        try:
-            word = sys.argv[1]
+        if word is not None:
             fetcher.fetch_word(word)
-        except:
-            fetcher.fetch_all_words()
+        else:
+            fetcher.fetch_all_words(sort_by = num, asc = asc)
+
 
 
 if __name__ == '__main__':
