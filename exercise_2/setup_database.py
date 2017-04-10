@@ -9,7 +9,7 @@ import ConfigParser
 def main():
     # So we can read the config file
     parser = ConfigParser.ConfigParser()
-    parser.read('extweetwordcount/credentials.config')
+    parser.read('postgres_credentials.config')
 
     try:
         database  = parser.get('POSTGRES' , 'database')
