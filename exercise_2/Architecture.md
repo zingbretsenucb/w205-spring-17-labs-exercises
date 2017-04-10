@@ -4,11 +4,13 @@ For instructions on how to run the code, please see README.md!
 
 # Purpose
 
-Being able to process streaming data is becoming increasingly important as the amount and velocity of data being collected by companies and individuals surge. Processing these data (e.g., Twitter data) in more traditional ways is likened to trying to drink from a firehose. Specialized stream processing is required to process these data in such a way as to derive insights quickly and respond to changes in realtime.
+Being able to process streaming data is becoming increasingly important as the amount and velocity of data being collected by companies and individuals surge. Processing these data (e.g., Twitter data) in more traditional ways is likened to trying to drink from a fire hose. Specialized stream processing is required to process these data in such a way as to derive insights quickly and respond to changes in realtime.
 
-The idea behind this project is to demonstrate a streaming processing pipeline of Twitter data. This project implements a simple word counter to parse tweets into machine-readable words, count the occurrances of each of those words, and then store those counts in a database. This framework coule easily be expanded to process and filter data for business purposes.
+The idea behind this project is to demonstrate a streaming processing pipeline of Twitter data. This project implements a simple word counter to parse tweets into machine-readable words, count the occurrences of each of those words, and then store those counts in a database. This framework could easily be expanded to process and filter data for business purposes.
 
 # Architecture
+
+## Software/Dependencies
 
 The backbone of this project is Apache Storm. Apache Storm is stream processing software that is modular and robust to failures. For this project, we are also using streamparse, which allows us to use python code to run Storm jobs. Storm uses Java primarily (and other JVM-supported languages), but streamparse allows us to iterate more quickly with a more user-friendly language. This whole project could be written in Java with purely Apache Storm, but Python is much easier to prototype in.
 
@@ -30,43 +32,43 @@ Also of potential interest, in the wordcount.py bolt is the pgUpdater class. I w
 
 Rather than update the database upon receipt of every word, we maintain a buffer of words and their counts. When a single word has been encountered a specified number of times, we update the database entry for that word and delete the word from our buffer. 
 
-If, instead, we have a total number of different words in our buffer that exceeds some threshold, we dump our full buffer to the database. This will make sure that our buffer sends the less common words to the database if it is taking them a long time to reach the theshold to be sent individually. 
+If, instead, we have a total number of different words in our buffer that exceeds some threshold, we dump our full buffer to the database. This will make sure that our buffer sends the less common words to the database if it is taking them a long time to reach the threshold to be sent individually. 
 
 ### Directory structure:
 
 .
-├── Architecture.md
-├── Architecture.pdf
-├── credentials
-│   └── Twittercredentials.py
-├── extweetwordcount
-│   ├── config.json
-│   ├── example.config
-│   ├── fabfile.py
-│   ├── project.clj
-│   ├── README.md
-│   ├── src
-│   │   ├── bolts
-│   │   │   ├── parse.py
-│   │   │   ├── postgres
-│   │   │   │   └── postgresUpdater.py~
-│   │   │   └── wordcount.py
-│   │   └── spouts
-│   │       └── tweets.py
-│   ├── tasks.py
-│   ├── topologies
-│   │   └── tweetwordcount.clj
-│   └── virtualenvs
-│       └── tweetwordcount.txt
-├── FetchResults
-│   ├── FetchResults.py
-├── finalresults.py
-├── hello-stream-twitter.py
-├── histogram.py
-├── postgres_credentials.config
-├── README.md
-├── setup_config.sh
-├── setup_database.py
-├── setup.sh
-├── startup.sh
-├── twitter_credentials.config
++---- Architecture.md
++---- Architecture.pdf
++---- credentials
+|   `---- Twittercredentials.py
++---- extweetwordcount
+|   +---- config.json
+|   +---- example.config
+|   +---- fabfile.py
+|   +---- project.clj
+|   +---- README.md
+|   +---- src
+|   |   +---- bolts
+|   |   |   +---- parse.py
+|   |   |   +---- postgres
+|   |   |   |   `---- postgresUpdater.py~
+|   |   |   `---- wordcount.py
+|   |   `---- spouts
+|   |       `---- tweets.py
+|   +---- tasks.py
+|   +---- topologies
+|   |   `---- tweetwordcount.clj
+|   `---- virtualenvs
+|       `---- tweetwordcount.txt
++---- FetchResults
+|   +---- FetchResults.py
++---- finalresults.py
++---- hello-stream-twitter.py
++---- histogram.py
++---- postgres_credentials.config
++---- README.md
++---- setup_config.sh
++---- setup_database.py
++---- setup.sh
++---- startup.sh
++---- twitter_credentials.config
