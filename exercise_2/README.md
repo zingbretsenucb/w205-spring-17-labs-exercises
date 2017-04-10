@@ -54,7 +54,7 @@ Once you have the drive mounted and postgres running, create a folder in data fo
 ```bash
 mkdir /data/labs/
 cd /data/labs/
-git clone -b submission https://github.com/zingbretsenucb/w205-sprint-17-labs-exercises
+git clone -b ex2_submission https://github.com/zingbretsenucb/w205-spring-17-labs-exercises
 cd w205-sprint-17-labs-exercises/exercise_2
 ```
 
