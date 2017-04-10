@@ -1,0 +1,10 @@
+zach_twitter_credentials.config
+*~
+*swp
+*pyc
+data/
+exercise_1/
+\#*\#
+.\#*
+exercise_2/FetchResults/postgres_credentials.config
+*config
