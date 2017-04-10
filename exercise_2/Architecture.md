@@ -1,6 +1,6 @@
 # Zach Ingbretsen Exercise 2
 
-For instructions on how to run the code, please see README.md!
+For instructions on how to run the code, please see README.md! This document speaks about the technology and the code, but not specifically about how to run it.
 
 # Purpose
 
