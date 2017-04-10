@@ -10,7 +10,7 @@ def main():
             word = sys.argv[1]
             fetcher.fetch_word(word)
         except:
-            fetcher.print_all_words()
+            fetcher.fetch_all_words()
 
 
 if __name__ == '__main__':

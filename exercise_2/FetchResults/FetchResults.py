@@ -6,50 +6,69 @@ import ConfigParser
 import os
 import re
 import sys
-
-# Load in details from credentials file
-parser = ConfigParser.ConfigParser()
-
-file_path = os.path.dirname(os.path.realpath(__file__))
-parser.read(os.path.join(file_path, 'postgres_credentials.config'))
-
-database = parser.get('TCOUNT', 'database')
-table    = parser.get('TCOUNT', 'table')
-user     = parser.get('POSTGRES', 'user')
-password = parser.get('POSTGRES', 'password')
-host     = parser.get('POSTGRES', 'host')
-port     = parser.get('POSTGRES', 'port')
+from __future__ import print_function
 
 class ResultsFetcher(object):
     """Class to safely retrieve words from postgres"""
 
-    def __init__(self):
+    def __init__(self, print_only = True):
         self.conn = None
         self.cur = None
+
+        self.print_only = print_only
+
+        # Load in details from credentials file
+        parser = ConfigParser.ConfigParser()
+
+        file_path = os.path.dirname(os.path.realpath(__file__))
+        parser.read(os.path.join(file_path, 'postgres_credentials.config'))
+
+        self.database = parser.get('TCOUNT', 'database')
+        self.table    = parser.get('TCOUNT', 'table')
+        self.user     = parser.get('POSTGRES', 'user')
+        self.password = parser.get('POSTGRES', 'password')
+        self.host     = parser.get('POSTGRES', 'host')
+        self.port     = parser.get('POSTGRES', 'port')
+
 
 
     def __enter__(self):
         """Connect to database upon entering context"""
-        self.conn = psycopg2.connect(
-            database=database,
-            user=user,
-            password=password,
-            host=host,
-            port=port)
-        self.cur = self.conn.cursor()
+
+        self.connect()
         return self
 
 
     def __exit__(self, *args):
         """Safely close connection upon leaving context"""
-        self.conn.close()
-        return False
+
+        return self.close()
+
+
+    def connect(self):
+        """Connect to database"""
+
+        self.conn = psycopg2.connect(
+            database=self.database,
+            user=self.user,
+            password=self.password,
+            host=self.host,
+            port=self.port)
+        self.cur = self.conn.cursor()
+
+
+    def close(self):
+        """Close connection to database"""
+
+         self.conn.close()   
+         return False
 
 
     def fetch_word(self, word):
         """Fetch a single word from the database"""
+
         word = re.sub("'", "''", word)
-        query_str = 'SELECT count from {} where word = \'{}\''.format(table, word)
+        query_str = 'SELECT count from {} where word = \'{}\''.format(self.table, word)
 
         self.cur.execute(query_str)
         self.conn.commit()
@@ -59,35 +78,48 @@ class ResultsFetcher(object):
             count = 0
 
         output_str = 'Total number of occurrences of "{}": {}'
-        print(output_str.format(word, count))
+
+        if self.print_only:
+            print(output_str.format(word, count))
+        else:
+            return (word, count)
 
 
-    def fetch_all_words(self, asc = True):
+    def fetch_all_words(self, sort_by = 'word', asc = True):
         """Fetch all words from the database"""
-        query_str = 'SELECT word, count from {}'.format(table)
+
+        query_str = 'SELECT word, count from {}'.format(self.table)
+
+        valid_sorts = ('word', 'count')
+
+        if sort_by in valid_sorts:
+            order = ' ASC' if asc else ' DESC'
+            query_str += ' order by {} {}'.format(sort_by, order)
+            
         self.cur.execute(query_str)
         self.conn.commit()
 
-        all_words = self.cur.fetchall()
-        # Return all words sorted so that the most frequent words are
-        # on the top, by default
-        return sorted(all_words, key = lambda x: x[1], reverse = asc)
+        words = self.cur.fetchall()
 
-
-    def print_all_words(self):
-        all_words = self.fetch_all_words()
-        self.print_words(all_words)
-
-
-    def print_words(self, words):
-        for word_count in words:
-            print(word_count)
+        if self.print_only:
+            print(*words, sep = '\n')
+        else:
+            return words
 
 
     def histogram(self, lb, ub):
-        query_str = 'SELECT word, count from {} where count >= {} and count <= {}'.format(table, lb, ub)
+        """Fetch all words from the database that appear a certain number of times"""
+
+        query_str = 'SELECT word, count from {} where count >= {} and count <= {}'.format(
+            self.table, lb, ub)
+
         self.cur.execute(query_str)
         self.conn.commit()
 
-        all_words = self.cur.fetchall()
-        self.print_words(all_words)
+        words = self.cur.fetchall()
+
+        if self.print_only:
+            for word in words:
+                print('{}: {}'.format(word[0], word[1]))
+        else:
+            return words
