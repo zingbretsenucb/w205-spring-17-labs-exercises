@@ -86,7 +86,7 @@ class ResultsFetcher(object):
             return (word, count)
 
 
-    def fetch_all_words(self, sort_by = 'word', asc = True):
+    def fetch_all_words(self, sort_by = 'word', asc = True, limit = None):
         """Fetch all words from the database"""
 
         query_str = 'SELECT word, count from {}'.format(self.table)
@@ -96,6 +96,13 @@ class ResultsFetcher(object):
         if sort_by in valid_sorts:
             order = ' ASC' if asc else ' DESC'
             query_str += ' order by {} {}'.format(sort_by, order)
+
+        if limit is not None:
+            try:
+                query_str += ' limit {}'.format(int(limit))
+            except:
+                print('Limit must be an integer!')
+                print('Proceeding with no limit.')
             
         self.cur.execute(query_str)
         self.conn.commit()
