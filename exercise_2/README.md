@@ -88,11 +88,16 @@ sparse run
 
 Press enter when prompted.
 
-Press ctrl + c to stop the process after you have collected your desired amount of data.
+Press ctrl + c to stop the process after you have collected your desired amount of data. You should let it run for at least a minute or two.
 
 # Querying results
 
 Once you have collected some data, you may run the following commands to inspect the data.
+
+Return to the exercise_2 directory (assuming you are still in extweetwordcount):
+```bash
+cd ..
+```
 
 To print all words and their counts:
 ```bash
