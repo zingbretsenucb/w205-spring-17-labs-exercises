@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 import psycopg2
 import ConfigParser
 import os
 import re
 import sys
-from __future__ import print_function
 
 class ResultsFetcher(object):
     """Class to safely retrieve words from postgres"""
@@ -60,8 +61,8 @@ class ResultsFetcher(object):
     def close(self):
         """Close connection to database"""
 
-         self.conn.close()   
-         return False
+        self.conn.close()   
+        return False
 
 
     def fetch_word(self, word):
