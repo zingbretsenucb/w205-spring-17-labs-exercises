@@ -60,8 +60,9 @@ cd w205-sprint-17-labs-exercises/exercise_2
 
 # Credentials
 
-Next, please enter your twitter app's credentials in the twitter_credentials.config file. The Storm spout will not work without these credentials.
+Next, please enter your twitter app's credentials in the twitter_credentials.config file. The Storm spout will not work without these credentials!!
 
+You do not have to edit postgres_credentials.config, but you may do so if you want to change the database or table name that the data will write to. 
 Now, you can run:
 
 ```bash
