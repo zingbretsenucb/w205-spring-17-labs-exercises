@@ -106,6 +106,12 @@ python2.7 finalresults.py <word>
 python2.7 finalresults.py tweet
 ```
 
+To see more options, run:
+```bash
+python2.7 finalresults.py --help
+```
+
+
 To report all words between lengths m and n:
 ```bash
 python2.7 histogram.py m,n
