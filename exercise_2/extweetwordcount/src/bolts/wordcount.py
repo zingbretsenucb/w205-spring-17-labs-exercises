@@ -27,7 +27,7 @@ class WordCounter(Bolt):
 
         self.updater = pgUpdater(database = database, table = table,
                                  user = user, password = password,
-                                 word_buffer_size = 100, count_buffer_size = 5)
+                                 word_buffer_size = 200, count_buffer_size = 20)
 
     def process(self, tup):
         word = tup.values[0]
